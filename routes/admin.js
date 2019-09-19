@@ -1,10 +1,15 @@
-const router = require('express').Router();
-const path = require('path');
-const productController = require('../controller/products');
-const rootDir = require('../util/path');
+const path = require("path"),
+  router = require("express").Router();
 
-router.get('/', productController.listAllProducts)
+const adminController = require("../controller/admin");
 
-router.get('/add-product', productController.getAddProductPage)
+// /admin/ => GET {lists all products to admin}
+router.get("/", adminController.getProducts);
 
-module.exports = router
+// /admin/add-product => GET {renders product add form}
+router.get("/add-product", adminController.getAddProductPage);
+
+// /admin/add-product => POST {receives & processes submission of produc}
+router.get("/add-product", adminController.addProduct);
+
+module.exports = router;
