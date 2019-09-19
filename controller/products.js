@@ -3,5 +3,5 @@ exports.getAddProductPage = (req, res, next) => {
 }
 
 exports.listAllProducts = (req, res, next) => {
-    res.render('shop', { "prods": products });
+    res.render('shop');
 }
