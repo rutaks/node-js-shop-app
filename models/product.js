@@ -12,7 +12,7 @@ const getProductsFromFile = cb => {
     if (err) {
       cb([]);
     } else {
-      bc(JSON.parse(fileContent));
+      cb(JSON.parse(fileContent));
     }
   });
 };
