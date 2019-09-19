@@ -1,8 +1,18 @@
-const router = require('express').Router();
-const path = require('path');
+const router = require("express").Router(),
+  path = require("path");
 
-router.get('/', (req, res, next) => {
-    res.send('hey')
-})
+const shopController = require("../controller/shop");
+
+router.get("/", shopController.getIndex);
+
+router.get("/products", shopController.getProducts);
+
+router.get("/products/:id", shopController.getProduct);
+
+router.get("/cart", shopController.getCart);
+
+router.get("/orders", shopController.getOrders);
+
+router.get("/checkout", shopController.getCheckout);
 
 module.exports = router;
