@@ -14,11 +14,15 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
-  const id = req.params.productId;
-  Product.findById(id, product => {
-    console.log("Item Found:" + product);
-  });
-  res.redirect("/");
+  const id = req.params.id;
+  Product.findByPk(id)
+    .then(product => {
+      console.log(product);
+      res.render("shop/product-details", { product: product });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.getIndex = (req, res, next) => {
