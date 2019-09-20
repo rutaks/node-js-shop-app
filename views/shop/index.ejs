@@ -16,11 +16,12 @@
                     <div class="card-body">
                         <p class="card-text"><%= product.description %></p>
                         <div class="row">
-                            <a href="/products/<%= product.id %>" class="btn btn-default">Details</a>
-                            <form action="/add-to-cart" method="POST">
-                                <button type="submit" class="btn btn-success">Add To Cart</button>
+                            <a href="/products/<%= product.id %>" class="btn col-lg-5 btn-primary">Details</a>
+                            <form action="/add-to-cart" class="col-lg-6" method="POST">
+                                <button type="submit" class="btn btn-block btn-success">Add To Cart</button>
                             </form>
                         </div>
+                        <br>
                         <div class="card-footer text-muted">
                             2 days ago
                         </div>

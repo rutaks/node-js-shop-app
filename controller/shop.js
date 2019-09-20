@@ -1,12 +1,16 @@
 const Product = require("../models/product");
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll(products => {
-    res.render("shop/product-list", {
-      products: products,
-      pageTitle: "All Products"
+  Product.findAll()
+    .then(products => {
+      res.render("shop/product-list", {
+        products: products,
+        pageTitle: "All Products"
+      });
+    })
+    .catch(err => {
+      console.log("An Error Occured  " + err);
     });
-  });
 };
 
 exports.getProduct = (req, res, next) => {
@@ -18,12 +22,16 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll(products => {
-    res.render("shop/index", {
-      products: products,
-      pageTitle: "All Products"
+  Product.findAll()
+    .then(products => {
+      res.render("shop/index", {
+        products: products,
+        pageTitle: "All Products"
+      });
+    })
+    .catch(err => {
+      console.log("An Error Occured  " + err);
     });
-  });
 };
 
 exports.getCart = (req, res, next) => {
