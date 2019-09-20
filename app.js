@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const rootDir = require("./util/path");
 const app = express();
+const sequelize = require("./util/database");
 const errorController = require("./controller/error");
 
 app.set("view engine", "ejs");
@@ -19,4 +20,11 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+sequelize
+  .sync()
+  .then(res => {
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
