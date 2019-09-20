@@ -10,6 +10,6 @@ router.get("/", adminController.getProducts);
 router.get("/add-product", adminController.getAddProductPage);
 
 // /admin/add-product => POST {receives & processes submission of produc}
-router.get("/add-product", adminController.addProduct);
+router.post("/add-product", adminController.addProduct);
 
 module.exports = router;
