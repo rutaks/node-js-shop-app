@@ -38,3 +38,36 @@ exports.getProducts = (req, res, next) => {
       console.log("An Error Occured");
     });
 };
+
+exports.getEditProduct = (req, res, next) => {
+  const id = req.params.id;
+  Product.findByPk(id)
+    .then(product => {
+      if (!product) {
+        res.redirect("/");
+      }
+      res.render("admin/edit-product", {
+        pageTitle: "Edit Product",
+        product: product
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.editProduct = (req, res, next) => {
+  const { id, title, imgUrl, price, description } = req.body;
+  Product.findByPk(id)
+    .then(product => {
+      product.id = id;
+      product.title = title;
+      product.imageUrl = imgUrl;
+      product.price = price;
+      product.description = description;
+      product.save();
+    })
+    .then(res => {
+      res.redirect("/admin/");
+    })
+    .catch(err => console.log(err));
+  console.log(id);
+};
