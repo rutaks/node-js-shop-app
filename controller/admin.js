@@ -17,13 +17,12 @@ exports.addProduct = (req, res, next) => {
     imageUrl: imgUrl,
     description: description
   })
-    .then(res => {
-      console.log("Product Create");
+    .then(result => {
+      res.redirect("/");
     })
     .catch(err => {
       console.log(err);
     });
-  res.redirect("/");
 };
 
 exports.getProducts = (req, res, next) => {
@@ -65,9 +64,23 @@ exports.editProduct = (req, res, next) => {
       product.description = description;
       product.save();
     })
-    .then(res => {
+    .then(result => {
       res.redirect("/admin/");
     })
     .catch(err => console.log(err));
   console.log(id);
+};
+
+exports.deleteProduct = (req, res, next) => {
+  const id = req.body.id;
+  Product.findByPk(id)
+    .then(product => {
+      product.destroy();
+    })
+    .then(result => {
+      res.redirect("/admin");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
