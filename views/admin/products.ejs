@@ -16,8 +16,12 @@
                     <div class="card-body">
                         <p class="card-text"><%= product.description %></p>
                         <div class="row">
-                            <a href="/admin/edit-product/<%= product.id %>" class="btn col-lg-6 btn-warning">Edit</a>
+                            <a href="/admin/delete-product/<%= product.id %>" class="btn col-lg-6 btn-warning">Edit</a>
                             <form action="/admin/delete-product" class="col-lg-6" method="POST">
+
+                                <input type="hidden" name="id" id="inputid" class="form-control"
+                                    value="<%= product.id %>">
+
                                 <button type="submit" class="btn btn-block btn-danger">Delete</button>
                             </form>
                         </div>
