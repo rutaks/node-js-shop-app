@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize"),
   sequelize = require("../util/database");
 
-const CartItem = Sequelize.define("cartItem", {
+const CartItem = sequelize.define("cartItem", {
   id: {
     type: Sequelize.STRING,
     autoIncrement: true,
