@@ -4,7 +4,7 @@
     <%- include('../includes/navbar.ejs') %>
     <div class="container">
         <br>
-        <a href="/admin/add-product">dfsa</a>
+        <a href="/admin/">View All Products</a>
         <div class="jumbotron">
             <form action="/admin/edit-product" method="POST">
                 <legend>Add Item</legend>
@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="title">Image URL</label>
                     <input type="text" name="imgUrl" class="form-control" id="imgUrl" placeholder="Enter Item Image"
-                        value="<%= product.imageUrl %>">
+                        value="<%= product.imgUrl %>">
                 </div>
                 <div class="form-group">
                     <label for="title">Price</label>
