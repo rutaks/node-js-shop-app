@@ -75,3 +75,14 @@ exports.editProduct = (req, res, next) => {
     })
     .catch(err => console.log("ERR: Could not edit product, " + err));
 };
+
+exports.deleteProduct = (req, res, next) => {
+  const id = req.body.id;
+  Product.findByIdAndRemove(id)
+    .then(() => {
+      res.redirect("/admin");
+    })
+    .catch(err => {
+      console.log("ERR: Could not remove product, " + err);
+    });
+};
