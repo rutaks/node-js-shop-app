@@ -61,7 +61,7 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.editProduct = (req, res, next) => {
   const { id, title, imgUrl, price, description } = req.body;
-  Product.findByPk(id)
+  Product.findById(id)
     .then(product => {
       product.id = id;
       product.title = title;
@@ -73,20 +73,5 @@ exports.editProduct = (req, res, next) => {
     .then(result => {
       res.redirect("/admin/");
     })
-    .catch(err => console.log(err));
-  console.log(id);
-};
-
-exports.deleteProduct = (req, res, next) => {
-  const id = req.body.id;
-  Product.findByPk(id)
-    .then(product => {
-      product.destroy();
-    })
-    .then(result => {
-      res.redirect("/admin");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log("ERR: Could not edit product, " + err));
 };
