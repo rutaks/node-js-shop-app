@@ -35,29 +35,6 @@
                         </div>
                     </td>
                 </tr>
-        <!-- <div class="col-lg-4">
-            <div class="card mb-3">
-                <h3 class="card-header"><%= product.title %></h3>
-                <img style="height: 200px; width: 100%; display: block;" src="<%= product.imageUrl %>"
-                    alt="Card image">
-                <div class="card-body">
-                    <p class="card-text"><%= product.description %></p>
-                    <div class="row">
-                        <a href="/admin/edit-product/<%= product.id %>" class="btn col-lg-6 btn-warning">Edit</a>
-                        <form action="/admin/delete-product" class="col-lg-6" method="POST">
-
-                            <input type="hidden" name="id" id="inputid" class="form-control"
-                                value="<%= product.id %>">
-
-                            <button type="submit" class="btn btn-block btn-danger">Delete</button>
-                        </form>
-                    </div>
-                    <div class="card-footer text-muted">
-                        2 days ago
-                    </div>
-                </div>
-            </div>
-        </div> -->
             <% } %>
             <%}else{%>
             <h1>No Product Found</h1>
