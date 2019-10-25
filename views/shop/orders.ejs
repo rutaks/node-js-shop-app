@@ -3,15 +3,43 @@
 <body>
     <%- include('../includes/navbar.ejs') %>
     <br>
-    <div class="container">
-        <div class="jumbotron">
-            <div class="container">
-                <center>
-                    <h1>Order Page Not Ready At The Moment</h1>
-                </center>
-            </div>
-        </div>
 
+    <div class="container">
+        <table id="table" style="width:100%" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Prices</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(orders.length > 0){%>
+                <% orders.forEach(o => { %>
+                <tr>
+                    <td><%= o._id  %></td>
+                    <td>
+                        <% o.products.forEach(p  => { %>
+                        <%= p.product.title + " (" + p.quantity + ")," %>
+                        <% }) %>
+                    </td>
+                    <td>
+                        <% o.products.forEach(p  => { %>
+                        <%= p.product.price * p.quantity + ", " %>
+                        <% }) %>
+                    </td>
+                </tr>
+                <% }) %>
+                <% } %>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                paging: false,
+                scrollY: 400
+            });
+        });
+    </script>
+
 </body>
 <%- include('../includes/footer.ejs') %>
