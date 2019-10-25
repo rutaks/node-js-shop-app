@@ -76,6 +76,19 @@ exports.deleteCartProduct = (req, res, next) => {
     });
 };
 
+exports.getOrders = (req, res, next) => {
+  Order.find({ "user.userId": req.user._id })
+    .then(orders => {
+      res.render("shop/orders", {
+        orders: orders,
+        pageTitle: "Your Orders"
+      });
+    })
+    .catch(err => {
+      console.log("ERR: Could not get orders, " + err);
+    });
+};
+
 exports.postOrders = (req, res, next) => {
   req.user
     .populate("cart.items.productId")
@@ -92,13 +105,16 @@ exports.postOrders = (req, res, next) => {
         products: products
       });
       return order.save();
+    })
+    .then(result => {
+      return req.user.clearCart();
+    })
+    .then(() => {
+      res.redirect("/orders");
+    })
+    .catch(err => {
+      console.log("ERR: Could not Create Order, " + err);
     });
-};
-
-exports.getOrders = (req, res, next) => {
-  res.render("shop/orders", {
-    pageTitle: "Your Orders"
-  });
 };
 
 exports.getCheckout = (req, res, next) => {
