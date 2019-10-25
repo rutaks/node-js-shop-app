@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Order = require("../models/order");
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -72,6 +73,25 @@ exports.deleteCartProduct = (req, res, next) => {
     })
     .catch(err => {
       console.log("ERR: Could Not Remove Item from Cart, " + err);
+    });
+};
+
+exports.postOrders = (req, res, next) => {
+  req.user
+    .populate("cart.items.productId")
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items.map(i => {
+        return { quantity: i.quantity, product: { ...i.productId._doc } };
+      });
+      const order = new Order({
+        user: {
+          userId: req.user,
+          name: req.user.name
+        },
+        products: products
+      });
+      return order.save();
     });
 };
 
