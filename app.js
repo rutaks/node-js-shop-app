@@ -5,6 +5,7 @@ const rootDir = require("./util/path");
 const app = express();
 const mongoose = require("mongoose");
 const errorController = require("./controller/error");
+const session = require("express-session");
 
 require("custom-env").env();
 
@@ -22,6 +23,13 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  session({
+    secret: "Long ID should be here",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 app.use((req, res, next) => {
   User.findById("5db167aa85c99f4d390fd76d")
