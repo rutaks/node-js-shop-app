@@ -5,6 +5,8 @@ router.get("/login", authController.getLoginPage);
 
 router.post("/login", authController.login);
 
+router.get("/signup", authController.getSignupPage);
+
 router.get("/logout", authController.logout);
 
 module.exports = router;
