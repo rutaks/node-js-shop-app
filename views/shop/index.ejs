@@ -11,13 +11,13 @@
             <div class="col-lg-4">
                 <div class="card mb-3">
                     <h3 class="card-header"><%= product.title %></h3>
-                    <img style="height: 200px; width: 100%; display: block;" src="<%= product.imageUrl %>"
-                        alt="Card image">
+                    <center><img style="height: 200px; width: 50%; display: block;" src="<%= product.imgUrl %>" alt="Card image"></center>
                     <div class="card-body">
                         <p class="card-text"><%= product.description %></p>
                         <div class="row">
                             <a href="/products/<%= product.id %>" class="btn col-lg-5 btn-primary">Details</a>
-                            <form action="/add-to-cart" class="col-lg-6" method="POST">
+                            <form action="/cart" class="col-lg-6" method="POST">
+                                <input type="hidden" name="productId" value="<%= product.id %>">
                                 <button type="submit" class="btn btn-block btn-success">Add To Cart</button>
                             </form>
                         </div>

@@ -3,15 +3,46 @@
 <body>
     <%- include('../includes/navbar.ejs') %>
     <br>
-    <div class="container">
-        <div class="jumbotron">
-            <div class="container">
-                <center>
-                    <h1>Cart Not Ready At The Moment</h1>
-                </center>
-            </div>
-        </div>
 
+    <div class="container">
+        <table id="table" style="width:100%" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Product Title</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(products.length > 0){%>
+                <% products.forEach(p => { %>
+                <tr>
+                    <td><%= p.productId.title %></td>
+                    <td>
+                        <img style="height: 50px; width: 50px; display: block;" src="<%= p.productId.imgUrl %>">
+                    </td>
+                    <td><%= p.productId.price %></td>
+                    <td>
+                        <div class="row">
+                            <form action="/cart-delete-item" class="col-lg-6" method="POST">
+                                <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                <button type="submit" class="btn btn-block btn-danger">Remove From Cart</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+                <% } %>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                paging: false,
+                scrollY: 400
+            });
+        });
+    </script>
 </body>
 <%- include('../includes/footer.ejs') %>

@@ -9,7 +9,7 @@ router.get("/", adminController.getProducts);
 // /admin/add-product => GET {renders product add form}
 router.get("/add-product", adminController.getAddProductPage);
 
-// /admin/add-product => POST {receives & processes submission of produc}
+// /admin/add-product => POST {receives & processes submission of product}
 router.post("/add-product", adminController.addProduct);
 
 router.get("/edit-product/:id", adminController.getEditProduct);
