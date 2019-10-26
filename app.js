@@ -6,6 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 const errorController = require("./controller/error");
 const session = require("express-session");
+const MongoDBSession = require("connect-mongodb-session")(session);
 
 require("custom-env").env();
 
@@ -49,10 +50,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(
-    "mongodb://" + process.env.DB_HOST + ":" + process.env.DB_HOST + "/myapp",
-    { useNewUrlParser: true }
-  )
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(result => {
     User.findOne().then(user => {
       if (!user) {
