@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const authController = require("../controller/auth");
+const isAuth = require("../middleware/is-auth");
 
 router.get("/login", authController.getLoginPage);
 
@@ -9,6 +10,6 @@ router.get("/signup", authController.getSignupPage);
 
 router.post("/signup", authController.signup);
 
-router.get("/logout", authController.logout);
+router.get("/logout", isAuth, authController.logout);
 
 module.exports = router;
