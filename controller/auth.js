@@ -15,3 +15,9 @@ exports.login = (req, res, next) => {
       console.log("ERR: Could Not Login, " + err);
     });
 };
+
+exports.logout = (req, res, next) => {
+  req.session.destroy(() => {
+    res.redirect("/login");
+  });
+};
