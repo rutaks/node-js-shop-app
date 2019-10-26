@@ -4,6 +4,10 @@ exports.getLoginPage = (req, res, next) => {
   res.render("auth/login", { pageTitle: "Login" });
 };
 
+exports.getSignupPage = (req, res, next) => {
+  res.render("auth/signup", { pageTitle: "Signup" });
+};
+
 exports.login = (req, res, next) => {
   User.findById("5db167aa85c99f4d390fd76d")
     .then(user => {
