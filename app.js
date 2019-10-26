@@ -2,11 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const rootDir = require("./util/path");
-const app = express();
 const mongoose = require("mongoose");
 const errorController = require("./controller/error");
 const session = require("express-session");
-const MongoDBSession = require("connect-mongodb-session")(session);
+const MongoDBStore = require("connect-mongodb-session")(session);
+const app = express();
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URI,
+  collection: "sessions"
+});
 
 require("custom-env").env();
 
@@ -28,7 +32,8 @@ app.use(
   session({
     secret: "Long ID should be here",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: store
   })
 );
 
