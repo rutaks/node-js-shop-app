@@ -9,6 +9,7 @@
             <div class="container">
                 <h1>Signup</h1>
                 <form action="/signup" method="post">
+                    <input type="hidden" name="_csrf" id="input_csrf" class="form-control" value="<%= csrfToken%>">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Names</label>
                         <input type="text" class="form-control" name="name" aria-describedby="namehelp"
@@ -34,6 +35,13 @@
                     <button type="submit" class="btn btn-large btn-block btn-success">Create Account</button>
 
                 </form>
+                <% if(errorMessage && errorMessage != ""){ %>
+                <br>
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%= errorMessage %>
+                </div>
+                <% } %>
             </div>
         </div>
     </div>

@@ -7,12 +7,16 @@ const errorController = require("./controller/error");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const app = express();
+const crsf = require("csurf");
+const flashMessages = require("connect-flash");
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions"
 });
 
 require("custom-env").env();
+
+const csrfProtection = crsf();
 
 const Product = require("./models/product");
 const User = require("./models/user");
@@ -28,6 +32,7 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flashMessages());
 app.use(
   session({
     secret: "Long ID should be here",
@@ -36,6 +41,7 @@ app.use(
     store: store
   })
 );
+app.use(csrfProtection);
 
 app.use((req, res, next) => {
   if (!req.session.user) return next();
@@ -47,6 +53,12 @@ app.use((req, res, next) => {
     .catch(err => {
       console.log("ERR: Could not find User, " + err);
     });
+});
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
 });
 
 app.use("/admin", adminRoutes);
