@@ -8,6 +8,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const app = express();
 const crsf = require("csurf");
+const flashMessages = require("connect-flash");
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions"
@@ -31,6 +32,7 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flashMessages());
 app.use(
   session({
     secret: "Long ID should be here",
