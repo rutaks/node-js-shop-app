@@ -9,14 +9,20 @@ exports.getLoginPage = (req, res, next) => {
 };
 
 exports.getSignupPage = (req, res, next) => {
-  res.render("auth/signup", { pageTitle: "Signup" });
+  res.render("auth/signup", {
+    pageTitle: "Signup",
+    errorMessage: req.flash("error")
+  });
 };
 
 exports.signup = (req, res, next) => {
   const { email, names, password, confirmPassword } = req.body;
   User.findOne({ email: email })
     .then(userDoc => {
-      if (userDoc) return res.redirect("signup");
+      if (userDoc) {
+        req.flash("error", "Email is used by another user");
+        return res.redirect("signup");
+      }
       return bcrypt.hash(password, 12).then(hashedPassword => {
         const user = new User({
           email: email,
