@@ -7,6 +7,7 @@
         <a href="/admin/">View All Products</a>
         <div class="jumbotron">
             <form action="/admin/edit-product" method="POST">
+                <input type="hidden" name="_csrf" id="input_csrf" class="form-control" value="<%= csrfToken%>">
                 <legend>Add Item</legend>
                 <div class="form-group">
                     <label for="title">Item</label>
